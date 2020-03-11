@@ -18,16 +18,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   Future<List<Books>> _getBooks() async {
-    var data = await http.get("http://10.0.2.2:8000/api/books");
+    print('to read url');
+    var data = await http.get("http://192.168.43.115:5000/api/books");
+    print('Nabasa na ang url');
     var jsonData = json.decode(data.body);
-    List<Books> countries = [];
+    print("++++++++++++++++++++ ${jsonData} ++++++++++++++++++++++");
+    List<Books> books = [];
+
+
 
     for(var u in jsonData){
-      Books country = Books(u["id"], u["title"], u["author"], u["publisher"], u["edition"], u["pages"], u["call_number"], u["year"], u["image_url"]);
-      countries.add(country);
+
+
+      print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${u["title"]} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      Books book = Books(u["id"], u["title"], u["author"], u["publisher"], u["call_number"], u["isbn"], u["edition"], u["year"], u["pages"], u["copies"], u["remarks"], u["image_url"], u["created_at"], u["updated_at"]);
+      print('Adding Books');
+      books.add(book);
+      print('Hahaha');
     }
-    print(countries);
-    return countries;
+    return books;
+
   }
 
 
@@ -38,15 +48,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
         backgroundColor: Color(0xffff7315),
-        title: !isSearching ? 
-        Text("Book") : 
+        title: !isSearching ?
+        Text("Book") :
         TextField(
           style: TextStyle(
             color: Colors.white,
           ),
           decoration: InputDecoration(
             fillColor: Colors.white,
-            
+
             icon: Icon(Icons.book, color: Colors.white,),
             hintText: 'Search Book...',
             hintStyle: TextStyle(
@@ -91,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index){
                     return ListTile(
-                      
+
                       onTap: (){
                         Navigator.push(
                           context,
@@ -100,8 +110,8 @@ class _HomePageState extends State<HomePage> {
                       },
                       dense: true,
                       contentPadding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
-                      
-//                      leading: Image(image: NetworkImage(snapshot.data[index].bookPic != null ? "http://10.0.2.2:8000/images/" + snapshot.data[index].bookPic : "http://10.0.2.2:8000/images/nobookcover.jpg"),),
+
+                      leading: Image(image: NetworkImage(snapshot.data[index].bookPic != null ? "http://192.168.43.115:5000/images/" + snapshot.data[index].bookPic : "http://192.168.43.115:5000/images/nobookcover.jpg"),),
                       // leading: Image(
                       //     image: AssetImage("assets/no_image_book.jpg"),
                       //     height: 300.0,
@@ -147,11 +157,16 @@ class Books{
   final String title;
   final String author;
   final String publisher;
+  final String call_number;
+  final String isbn;
   final String edition;
-  final String pages;
-  final String callNumber;
   final String year;
-  final String bookPic;
+  final String pages;
+  final String copies;
+  final String remarks;
+  final String image_url;
+  final String created_at;
+  final String updated_at;
 
-  Books(this.id, this.title, this.author, this.publisher, this.edition, this.pages, this.callNumber, this.year, this.bookPic);
+  Books(this.id, this.title, this.author, this.publisher, this.call_number, this.isbn, this.edition, this.year, this.pages, this.copies, this.remarks, this.image_url, this.created_at, this.updated_at);
 }

@@ -19,7 +19,7 @@ class BookDetails extends StatelessWidget {
               child: SizedBox(
                 height: 500.0,
                 child: Image(
-                  image: NetworkImage(book.bookPic != '' ? "http://10.0.2.2/ComLab_Library_Server/alpha/books/" + book.bookPic : "http://10.0.2.2/ComLab_Library_Server/alpha/books/bookpics/no_image_book.jpg"),
+                  image: NetworkImage(book.image_url != '' ? "http://192.168.43.115:5000/images/" + book.image_url : "http://192.168.43.115:5000/images/nobookcover.jpg"),
                 ),
               )
           ),
@@ -100,7 +100,7 @@ class BookDetails extends StatelessWidget {
               SizedBox(width: 20.0,),
               Flexible(
                 child: Text(
-                  book.callNumber,
+                  book.call_number,
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 20.0,
