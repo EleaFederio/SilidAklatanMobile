@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<Books>> _getBooks() async {
     print('to read url');
-    var data = await http.get("http://192.168.43.115:5000/api/books");
+    var data = await http.get("http://10.0.2.2:8000/api/books");
     print('Nabasa na ang url');
     var jsonData = json.decode(data.body);
     print("++++++++++++++++++++ ${jsonData} ++++++++++++++++++++++");
@@ -29,12 +29,23 @@ class _HomePageState extends State<HomePage> {
 
     for(var u in jsonData){
 
+      int id = u["id"];
+      String title = u["title"];
+      String author = u["author"];
+      String publisher = u["publisher"];
+      String call_number = u["call_number"];
+      String isbn = u["isbn"];
+      String edition = u["edition"];
+      int year = u["year"];
+      int pages = u["pages"];
+      int copies = u["copies"];
+      String remarks = u["remarks"];
+      String image = u["image_url"];
+      print("++++++++++++++ book picture=> {$image} +++++++++++");
 
-      print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${u["title"]} AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-      Books book = Books(u["id"], u["title"], u["author"], u["publisher"], u["call_number"], u["isbn"], u["edition"], u["year"], u["pages"], u["copies"], u["remarks"], u["image_url"], u["created_at"], u["updated_at"]);
-      print('Adding Books');
+//      Books book = Books(u["id"], u["title"], u["author"], u["publisher"], u["call_number"], u["isbn"], u["edition"], u["year"], u["pages"], u["copies"], u["remarks"], u["image_url"], u["created_at"], u["updated_at"]);
+      Books book = Books(id, title, author, publisher, call_number, isbn, edition, year, pages, copies, remarks, image,);
       books.add(book);
-      print('Hahaha');
     }
     return books;
 
@@ -111,11 +122,7 @@ class _HomePageState extends State<HomePage> {
                       dense: true,
                       contentPadding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
 
-                      leading: Image(image: NetworkImage(snapshot.data[index].bookPic != null ? "http://192.168.43.115:5000/images/" + snapshot.data[index].bookPic : "http://192.168.43.115:5000/images/nobookcover.jpg"),),
-                      // leading: Image(
-                      //     image: AssetImage("assets/no_image_book.jpg"),
-                      //     height: 300.0,
-                      //   ),
+                      leading: Image(image: NetworkImage(snapshot.data[index].image_url != null ? "http://10.0.2.2:8000/images/" + snapshot.data[index].image_url : "http://10.0.2.2:8000/images/nobookcover.jpg"),),
                       title: Column(
                         children: <Widget>[
                           Align(
@@ -160,13 +167,11 @@ class Books{
   final String call_number;
   final String isbn;
   final String edition;
-  final String year;
-  final String pages;
-  final String copies;
+  final int year;
+  final int pages;
+  final int copies;
   final String remarks;
   final String image_url;
-  final String created_at;
-  final String updated_at;
 
-  Books(this.id, this.title, this.author, this.publisher, this.call_number, this.isbn, this.edition, this.year, this.pages, this.copies, this.remarks, this.image_url, this.created_at, this.updated_at);
+  Books(this.id, this.title, this.author, this.publisher, this.call_number, this.isbn, this.edition, this.year, this.pages, this.copies, this.remarks, this.image_url);
 }

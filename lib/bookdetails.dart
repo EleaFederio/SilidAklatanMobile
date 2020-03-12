@@ -19,7 +19,7 @@ class BookDetails extends StatelessWidget {
               child: SizedBox(
                 height: 500.0,
                 child: Image(
-                  image: NetworkImage(book.image_url != '' ? "http://192.168.43.115:5000/images/" + book.image_url : "http://192.168.43.115:5000/images/nobookcover.jpg"),
+                  image: NetworkImage(book.image_url != null ? "http://10.0.2.2:8000/images/" + book.image_url : "http://10.0.2.2:8000/images/nobookcover.jpg"),
                 ),
               )
           ),
@@ -125,7 +125,7 @@ class BookDetails extends StatelessWidget {
               SizedBox(width: 20.0,),
               Flexible(
                 child: Text(
-                  book.pages,
+                  book.pages.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 20.0,
@@ -175,7 +175,7 @@ class BookDetails extends StatelessWidget {
               SizedBox(width: 20.0,),
               Flexible(
                 child: Text(
-                  book.year,
+                  book.year.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 20.0,
@@ -184,7 +184,7 @@ class BookDetails extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 70.0,),
+          SizedBox(width: 100.0,),
           Center(
             child: FlatButton(
               color: Colors.blueAccent,
@@ -192,7 +192,7 @@ class BookDetails extends StatelessWidget {
                 print(book.id);
               },
               child: Text(
-                'Borrow this Book' + book.id.toString(),
+                'Borrow this Book',
                 style: TextStyle(
                   color: Colors.white,
                 ),
