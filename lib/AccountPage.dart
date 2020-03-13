@@ -7,6 +7,7 @@ import 'package:silid_aklatan_mobile/faq.dart';
 import 'package:silid_aklatan_mobile/library_logs.dart';
 import 'package:silid_aklatan_mobile/login.dart';
 import 'package:silid_aklatan_mobile/notification.dart';
+import 'package:silid_aklatan_mobile/register.dart';
 import 'package:silid_aklatan_mobile/report.dart';
 import 'package:silid_aklatan_mobile/suggest_book.dart';
 
@@ -25,9 +26,9 @@ class _AccountPageState extends State<AccountPage> {
       body: ListView(
 
         children: <Widget>[
-          SizedBox(height: 20.0,),
           Container(
-            padding : EdgeInsets.only(left: 32, right: 32, top: 32),
+//            color: Colors.blueGrey,
+            padding : EdgeInsets.only(left: 32, right: 32, top: 32, bottom: 32),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -44,10 +45,10 @@ class _AccountPageState extends State<AccountPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Eleazar O. Federio", style: TextStyle(color: Colors.grey[800], fontFamily: "Roboto",
+                      Text("Eleazar O. Federio", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
                           fontSize: 36, fontWeight: FontWeight.w700
                       ),),
-                      Text("BSCS 4-B", style: TextStyle(color: Colors.grey[500], fontFamily: "Roboto",
+                      Text("BSCS 4-B", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
                           fontSize: 16, fontWeight: FontWeight.w400
                       ),),
                     ],
@@ -57,10 +58,10 @@ class _AccountPageState extends State<AccountPage> {
               ],
             ),
           ),
-          SizedBox(height: 20.0,),
+
           Container(
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
-            color: Colors.blueAccent,
+            color: Colors.blueGrey,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -340,7 +341,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(
