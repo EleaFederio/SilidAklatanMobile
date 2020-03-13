@@ -1,8 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:silid_aklatan_mobile/account_setting.dart';
+import 'package:silid_aklatan_mobile/borrowed_books.dart';
+import 'package:silid_aklatan_mobile/evaluate.dart';
 import 'package:silid_aklatan_mobile/faq.dart';
+import 'package:silid_aklatan_mobile/library_logs.dart';
 import 'package:silid_aklatan_mobile/login.dart';
+import 'package:silid_aklatan_mobile/notification.dart';
+import 'package:silid_aklatan_mobile/report.dart';
+import 'package:silid_aklatan_mobile/suggest_book.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -131,7 +137,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationPage()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(
@@ -160,7 +166,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LibraryLogs()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(
@@ -189,7 +195,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowedBooks()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(
@@ -218,7 +224,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SuggestABook()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(
@@ -247,7 +253,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Evaluate()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(
@@ -305,7 +311,7 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 10.0,),
           FlatButton(
             onPressed: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ReportPage()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(

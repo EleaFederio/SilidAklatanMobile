@@ -42,13 +42,13 @@ class _MyAppState extends State<MyApp> {
         fixedColor: Colors.black,
         items: const<BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.book),
             
-            title: Text('Home'),
+            title: Text('Books'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Profile'),
+            title: Text('Account'),
           ),
         ],
       currentIndex: _currentIndex,
