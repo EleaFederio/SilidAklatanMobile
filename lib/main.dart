@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blueGrey[100],
         type: BottomNavigationBarType.fixed,
         fixedColor: Colors.black,
         items: const<BottomNavigationBarItem>[
