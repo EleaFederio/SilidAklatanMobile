@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:silid_aklatan_mobile/HomePage.dart';
 
@@ -19,7 +20,7 @@ class BookDetails extends StatelessWidget {
               child: SizedBox(
                 height: 500.0,
                 child: Image(
-                  image: NetworkImage(book.image_url != null ? "http://10.0.2.2:8000/images/" + book.image_url : "http://10.0.2.2:8000/images/nobookcover.jpg"),
+                  image: NetworkImage(book.image_url != null ? "http://192.168.43.115:8000/images/" + book.image_url : "http://192.168.43.115:8000/images/nobookcover.jpg"),
                 ),
               )
           ),
@@ -185,20 +186,25 @@ class BookDetails extends StatelessWidget {
             ],
           ),
           SizedBox(width: 100.0,),
-          Center(
-            child: FlatButton(
-              color: Colors.blueAccent,
-              onPressed: (){
-                print(book.id);
-              },
-              child: Text(
-                'Borrow this Book',
-                style: TextStyle(
-                  color: Colors.white,
+          Container(
+            margin: EdgeInsets.only(top: 20.0),
+            height: 40.0,
+            child: Material(
+              color: Colors.blue,
+              child: GestureDetector(
+                onTap: () {},
+                child: Center(
+                  child: Text(
+                    'BORROW THIS BOOK',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat'),
+                  ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

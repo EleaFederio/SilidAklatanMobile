@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:silid_aklatan_mobile/api/api.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -6,21 +9,34 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
+  TextEditingController firstname = TextEditingController();
+  TextEditingController middlename = TextEditingController();
+  TextEditingController lastname = TextEditingController();
+  TextEditingController course = TextEditingController();
+  TextEditingController year = TextEditingController();
+  TextEditingController studentId = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+        body: ListView( children: <
             Widget>[
           Container(
             child: Stack(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(15.0, 30.0, 0.0, 0.0),
                   child: Text(
-                    'Signup',
+                    'REGISTER',
                     style:
-                    TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -31,6 +47,91 @@ class _RegisterState extends State<Register> {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    controller: firstname,
+                    decoration: InputDecoration(
+                        labelText: 'FIRST NAME',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        // hintText: 'EMAIL',
+                        // hintStyle: ,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextField(
+                    controller: middlename,
+                    decoration: InputDecoration(
+                        labelText: 'MIDDLE NAME',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        // hintText: 'EMAIL',
+                        // hintStyle: ,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextField(
+                    controller: lastname,
+                    decoration: InputDecoration(
+                        labelText: 'LAST NAME',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        // hintText: 'EMAIL',
+                        // hintStyle: ,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextField(
+                    controller: course,
+                    decoration: InputDecoration(
+                        labelText: 'COURSE',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        // hintText: 'EMAIL',
+                        // hintStyle: ,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextField(
+                    controller: year,
+                    decoration: InputDecoration(
+                        labelText: 'YEAR',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        // hintText: 'EMAIL',
+                        // hintStyle: ,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextField(
+                    controller: studentId,
+                    decoration: InputDecoration(
+                        labelText: 'STUDENT ID',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        // hintText: 'EMAIL',
+                        // hintStyle: ,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  SizedBox(height: 10.0),
+                  TextField(
+                    controller: email,
                     decoration: InputDecoration(
                         labelText: 'EMAIL',
                         labelStyle: TextStyle(
@@ -44,6 +145,7 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    controller: password,
                     decoration: InputDecoration(
                         labelText: 'PASSWORD ',
                         labelStyle: TextStyle(
@@ -56,14 +158,16 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    controller: confirmPassword,
                     decoration: InputDecoration(
-                        labelText: 'NICK NAME ',
+                        labelText: 'CONFIRM PASSWORD ',
                         labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
                             color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue))),
+                    obscureText: true,
                   ),
                   SizedBox(height: 50.0),
                   Container(
@@ -74,10 +178,10 @@ class _RegisterState extends State<Register> {
                         color: Colors.blue,
                         elevation: 7.0,
                         child: GestureDetector(
-                          onTap: () {},
-                          child: Center(
+                          child: FlatButton(
+                            onPressed: _isLoading ? null : _handleLogin,
                             child: Text(
-                              'REGISTER',
+                              _isLoading ? 'CREATING ACCOUNT...':'REGISTER',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -116,7 +220,35 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ],
-              )),
-        ]));;
+              )
+            ),
+          ]
+        )
+    );
+  }
+
+  void _handleLogin() async{
+    print('vcvcvvcMMMMMMMMMMMMMMMMMMMMMM');
+    setState(() {
+      _isLoading = true;
+    });
+
+    var data = {
+      'firstname' : firstname.text,
+      'middlename' : middlename.text,
+      'lastname' : lastname.text,
+      'course' : course.text,
+      'year' : year.text,
+      'student_id' : studentId.text,
+      'email' : email.text,
+      'password' : password.text,
+      'c_password' : confirmPassword.text,
+    };
+
+   var res = await CallApi().postData(data, 'register');
+   var body = json.decode(res.body);
+   print(body);
+
+
   }
 }

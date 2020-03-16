@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<Books>> _getBooks() async {
     print('to read url');
-    var data = await http.get("http://10.0.2.2:8000/api/books");
+    var data = await http.get("http://192.168.43.115:8000/api/books");
     print('Nabasa na ang url');
     var jsonData = json.decode(data.body);
     print("++++++++++++++++++++ ${jsonData} ++++++++++++++++++++++");
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                       dense: true,
                       contentPadding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
 
-                      leading: Image(image: NetworkImage(snapshot.data[index].image_url != null ? "http://10.0.2.2:8000/images/" + snapshot.data[index].image_url : "http://10.0.2.2:8000/images/nobookcover.jpg"),),
+                      leading: Image(image: NetworkImage(snapshot.data[index].image_url != null ? "http://192.168.43.115:8000/images/" + snapshot.data[index].image_url : "http://192.168.43.115:8000/images/nobookcover.jpg"),),
                       title: Column(
                         children: <Widget>[
                           Align(
