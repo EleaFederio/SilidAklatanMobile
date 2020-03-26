@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:silid_aklatan_mobile/AccountPage.dart';
 import 'package:silid_aklatan_mobile/api/api.dart';
 
 class Register extends StatefulWidget {
@@ -228,7 +230,6 @@ class _RegisterState extends State<Register> {
   }
 
   void _handleLogin() async{
-    print('vcvcvvcMMMMMMMMMMMMMMMMMMMMMM');
     setState(() {
       _isLoading = true;
     });
@@ -247,6 +248,22 @@ class _RegisterState extends State<Register> {
 
    var res = await CallApi().postData(data, 'register');
    var body = json.decode(res.body);
+   print(body['student']);
+    print(body['success']);
+   if(body['success']){
+     SharedPreferences localStorage = await SharedPreferences.getInstance();
+     localStorage.setString('token', body['token']);
+     localStorage.setString('student', json.encode(body['student']));
+     Navigator.push(
+       context,
+       new MaterialPageRoute(
+         builder: (context) => AccountPage(),
+       ),
+     );
+   }
+   setState(() {
+     _isLoading = false;
+   });
    print(body);
 
 

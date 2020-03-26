@@ -1,22 +1,51 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silid_aklatan_mobile/account_setting.dart';
 import 'package:silid_aklatan_mobile/borrowed_books.dart';
 import 'package:silid_aklatan_mobile/evaluate.dart';
 import 'package:silid_aklatan_mobile/faq.dart';
 import 'package:silid_aklatan_mobile/library_logs.dart';
-import 'package:silid_aklatan_mobile/login.dart';
 import 'package:silid_aklatan_mobile/notification.dart';
 import 'package:silid_aklatan_mobile/register.dart';
 import 'package:silid_aklatan_mobile/report.dart';
 import 'package:silid_aklatan_mobile/suggest_book.dart';
+import 'package:silid_aklatan_mobile/api/ShareData.dart';
 
 class AccountPage extends StatefulWidget {
+
   @override
   _AccountPageState createState() => _AccountPageState();
 }
 
 class _AccountPageState extends State<AccountPage> {
+
+  var studentData;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    _getUserInfo();
+    super.initState();
+  }
+
+  _getUserInfo() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var studentJson = localStorage.getString('student');
+    var student = json.decode(studentJson);
+    setState(() {
+      studentData = student;
+    });
+  }
+
+  @override
+  void setState(fn) {
+    print(" ++++++++======= ${getStudentInfo()}");
+    super.setState(fn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +74,10 @@ class _AccountPageState extends State<AccountPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Eleazar O. Federio", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
+                      Text(studentData!= null ? "${studentData['firstname']} ${studentData['lastname']}" : "Anonymous", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
                           fontSize: 36, fontWeight: FontWeight.w700
                       ),),
-                      Text("BSCS 4-B", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
+                      Text(studentData!= null ? "${studentData['course']} ${studentData['year']}" : "", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
                           fontSize: 16, fontWeight: FontWeight.w400
                       ),),
                     ],

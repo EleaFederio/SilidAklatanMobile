@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silid_aklatan_mobile/AccountPage.dart';
 import 'package:silid_aklatan_mobile/HomePage.dart';
 
@@ -16,13 +19,37 @@ void main() => runApp(new MaterialApp(
   home: MyApp(),
 ));
 
+
 class MyApp extends StatefulWidget {
+
+  
+
   @override
   _MyAppState createState() => _MyAppState();
+
+  MyApp({Key key});
 }
 
 class _MyAppState extends State<MyApp> {
+
+  var studentData;
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    _getUserInfo();
+    super.initState();
+  }
+
+  _getUserInfo() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var studentJson = localStorage.getString('student');
+    var student = json.decode(studentJson);
+    setState(() {
+      studentData = student;
+    });
+  }
+
 
   final List<Widget> _children = [
     HomePage(),
@@ -60,6 +87,8 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
+
 }
 
 

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class CallApi{
-  final String _url = 'http://192.168.43.115:8000/api/';
+  final String _url = 'http://192.168.254.102:8000/api/';
 
   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
