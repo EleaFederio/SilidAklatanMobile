@@ -8,6 +8,7 @@ import 'package:silid_aklatan_mobile/borrowed_books.dart';
 import 'package:silid_aklatan_mobile/evaluate.dart';
 import 'package:silid_aklatan_mobile/faq.dart';
 import 'package:silid_aklatan_mobile/library_logs.dart';
+import 'package:silid_aklatan_mobile/login.dart';
 import 'package:silid_aklatan_mobile/notification.dart';
 import 'package:silid_aklatan_mobile/register.dart';
 import 'package:silid_aklatan_mobile/report.dart';
@@ -80,6 +81,9 @@ class _AccountPageState extends State<AccountPage> {
                       Text(studentData!= null ? "${studentData['course']} ${studentData['year']}" : "", style: TextStyle(color: Colors.black, fontFamily: "Roboto",
                           fontSize: 16, fontWeight: FontWeight.w400
                       ),),
+                      Text(studentData!= null ? "${studentData['student_id']}" : "2019-GC-000000", style: TextStyle(color: Colors.blueGrey, fontFamily: "Roboto",
+                          fontSize: 16, fontWeight: FontWeight.w700,
+                      ),),
                     ],
                   ),
                 ),
@@ -137,7 +141,9 @@ class _AccountPageState extends State<AccountPage> {
 
           SizedBox(height: 30.0,),
           FlatButton(
-            onPressed: (){
+            onPressed: () async {
+              SharedPreferences sharedData = await SharedPreferences.getInstance();
+              sharedData.clear();
               Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettings()));
             },
               padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
@@ -369,8 +375,10 @@ class _AccountPageState extends State<AccountPage> {
 
           SizedBox(height: 10.0,),
           FlatButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+            onPressed: ()  async {
+              SharedPreferences localStorage = await SharedPreferences.getInstance();
+              localStorage.clear();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
             },
             padding : EdgeInsets.only(left: 70, right: 70, top: 10, bottom: 10),
             child: Row(

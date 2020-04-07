@@ -20,7 +20,7 @@ class BookDetails extends StatelessWidget {
               child: SizedBox(
                 height: 500.0,
                 child: Image(
-                  image: NetworkImage(book.image_url != null ? "http://192.168.43.115:8000/images/" + book.image_url : "http://192.168.43.115:8000/images/nobookcover.jpg"),
+                  image: NetworkImage(book.image_url != null ? "http://192.168.254.102:8000/images/" + book.image_url : "http://192.168.254.102:8000/images/nobookcover.jpg"),
                 ),
               )
           ),

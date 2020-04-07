@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silid_aklatan_mobile/AccountPage.dart';
 import 'package:silid_aklatan_mobile/HomePage.dart';
+import 'package:silid_aklatan_mobile/login.dart';
 
 /*
   Color Pallete
@@ -20,6 +21,8 @@ void main() => runApp(new MaterialApp(
 ));
 
 
+
+
 class MyApp extends StatefulWidget {
 
   
@@ -32,8 +35,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  var studentData;
-  int _currentIndex = 0;
+  _getUserInfo() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var studentJson = localStorage.getString('student');
+    var student = json.decode(studentJson);
+    return student;
+  }
 
   @override
   void initState() {
@@ -41,14 +48,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  _getUserInfo() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var studentJson = localStorage.getString('student');
-    var student = json.decode(studentJson);
-    setState(() {
-      studentData = student;
-    });
-  }
+  var studentData;
+  int _currentIndex = 0;
 
 
   final List<Widget> _children = [
@@ -62,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
-      body: _children[_currentIndex],
+      body: studentData != null ? _children[1] : _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueGrey[100],
         type: BottomNavigationBarType.fixed,
