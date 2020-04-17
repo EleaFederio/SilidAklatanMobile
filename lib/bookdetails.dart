@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silid_aklatan_mobile/HomePage.dart';
+import 'package:silid_aklatan_mobile/api/api.dart';
 
 class BookDetails extends StatelessWidget {
 
@@ -192,7 +196,21 @@ class BookDetails extends StatelessWidget {
             child: Material(
               color: Colors.blue,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  SharedPreferences localStorage = await SharedPreferences.getInstance();
+                  var studentJson = localStorage.getString('student');
+                  var student = json.decode(studentJson);
+                  int studentId = student['id'];
+                  int bookIdNumber = book.id;
+
+                  var data = {
+                    'studentid' : studentId,
+                    'bookid' : bookIdNumber,
+                  };
+
+                  var res = await CallApi().postData(data, 'borrow_book');
+                  print('Student ID = $studentId'+' '+'Book ID = $bookIdNumber');
+                },
                 child: Center(
                   child: Text(
                     'BORROW THIS BOOK',
@@ -209,5 +227,10 @@ class BookDetails extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> borrowThisBook(int bookId) async {
+
+  }
+
 }
 
