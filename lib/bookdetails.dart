@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silid_aklatan_mobile/HomePage.dart';
 import 'package:silid_aklatan_mobile/api/api.dart';
@@ -204,12 +205,23 @@ class BookDetails extends StatelessWidget {
                   int bookIdNumber = book.id;
 
                   var data = {
-                    'studentid' : studentId,
-                    'bookid' : bookIdNumber,
+                    'studentId' : studentId,
+                    'bookIdNumber' : bookIdNumber,
                   };
 
                   var res = await CallApi().postData(data, 'borrow_book');
-                  print('Student ID = $studentId'+' '+'Book ID = $bookIdNumber');
+                  var body = json.decode(res.body);
+                  if(body['success']){
+                    Fluttertoast.showToast(
+                        msg: 'Book borrow request sent.',
+                        toastLength: Toast.LENGTH_LONG,
+                    );
+                  }else{
+                    Fluttertoast.showToast(
+                        msg: 'Book borrow request failed.',
+                        toastLength: Toast.LENGTH_LONG,
+                    );
+                  }
                 },
                 child: Center(
                   child: Text(
